@@ -1,0 +1,40 @@
+<div class="container card col-md-6">
+  <div class="card-header text-center">New Employee</div>
+  <div class="card-body">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="col1fName">First Name</label>
+        <input type="text" class="form-control" id="col1fName" [(ngModel)]="employee.col1fName" name="col1fName"/>
+      </div>
+      <div class="form-group">
+        <label for="col2lName">Last Name</label>
+        <input type="text" class="form-control" id="col2lName" [(ngModel)]="employee.col2lName" name="col2lName"/>    
+      </div>
+      <div class="form-group">
+        <label for="col3username">Username</label>
+        <input type="text" class="form-control" id="col3username" [(ngModel)]="employee.col3username" name="col3username"/>    
+      </div>
+      <div class="form-group">
+        <label for="col4password">Password</label>
+        <input type="password" class="form-control" id="col4password" [(ngModel)]="employee.col4password" name="col4password"/>    
+      </div>
+      <label for="col5title">Title</label>
+      <div class="radio-group">
+        <label>
+          <input type="radio" class="form-control" [(ngModel)]="employee.col5title" name="col5title" value="EMPLOYEE" />
+          Employee
+        </label>
+        <label>
+          <input type="radio" class="form-control" [(ngModel)]="employee.col5title" name="col5title" value="MANAGER" />
+          Manager
+        </label>
+      </div>
+      <button (click)="saveEmployee()" class="btn btn-success mr-2">Submit</button>
+      <button (click)="goBack()" class="btn btn-primary">Back</button>
+    </div>
+    <div class="card-footer" *ngIf="submitted">
+      <h4>New employee added successfully!</h4>
+      <button class="btn btn-success" (click)="newEmployee()">Back</button>
+    </div>
+  </div>
+</div>

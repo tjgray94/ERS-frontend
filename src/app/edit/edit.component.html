@@ -1,0 +1,52 @@
+<div class="container" *ngIf="jobTitle === 'manager'">
+  <h1>Update Job Title for {{ employee.col1fName }} {{ employee.col2lName }}</h1>
+  
+  <form #jobTitleForm="ngForm" (ngSubmit)="updateJobTitle()">
+    <div class="radio-group">
+      <label>
+        <input type="radio" [(ngModel)]="employee.col5title" name="col5title" value="EMPLOYEE" />
+        Employee
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="employee.col5title" name="col5title" value="MANAGER" />
+        Manager
+      </label>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mr-2">Update</button>
+    <button (click)="goBack()" class="btn btn-primary">Back</button>
+  </form>
+</div>
+
+<div class="container" *ngIf="jobTitle === 'employee'">
+  <h1>Update Password for {{ employee.col1fName }} {{ employee.col2lName }}</h1>
+  
+  <form #employeeForm="ngForm" (ngSubmit)="submit()">
+    <div class="form-group">
+      <label>Current Password</label>
+      <input type="password" class="form-control" id="currentPassword" name="currentPassword" required
+      [(ngModel)]="currentPassword" (input)="validatePasswords()" #currentPasswordField="ngModel" />
+      <div *ngIf="currentPasswordField.invalid && currentPasswordField.touched" class="text-danger">
+        Current password is required.
+      </div>
+      <div *ngIf="passwordMismatch" class="text-danger">
+        Current password is incorrect.
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>New Password</label>
+      <input type="password" class="form-control" id="newPassword" name="newPassword" required 
+      [(ngModel)]="newPassword" (input)="validatePasswords()" #newPasswordField="ngModel" />
+      <div *ngIf="newPasswordField.invalid && newPasswordField.touched" class="text-danger">
+        New password is required.
+      </div>
+      <div *ngIf="samePasswordError" class="text-danger">
+        New password cannot be the same as the current password.
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mr-2" [disabled]="passwordMismatch || samePasswordError || !employeeForm.form.valid">Update</button>
+    <button (click)="goBack()" class="btn btn-primary">Back</button>
+  </form>
+</div>

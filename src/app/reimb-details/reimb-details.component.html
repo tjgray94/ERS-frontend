@@ -1,0 +1,19 @@
+<div class="container">
+  <form>
+    <h1>Reimbursement for Employee ID: {{reimbursement.employee}}</h1>
+    <div class="form-group">
+      <label>{{reimbursement.col2amount | currency}} for {{reimbursement.col3reason}}</label>
+    </div>
+    <div class="form-group">
+      <label>Status: </label>
+      <p *ngIf="reimbursement.col4status === 'Accepted' || reimbursement.col4status === 'Rejected' ">{{reimbursement.col4status}}</p>
+      <select *ngIf="reimbursement.col4status === 'Pending'" class="form-control" id="col4status" [(ngModel)]="reimbursement.col4status" name="col4status">
+        <option value="Pending">Pending</option>
+        <option value="Accepted">Accept</option>
+        <option value="Rejected">Reject</option>
+      </select>
+    </div>
+    <button class="btn btn-primary mr-2" (click)="submit()">Update</button>
+    <button (click)="back()" class="btn btn-primary">Back</button>
+  </form>
+</div>

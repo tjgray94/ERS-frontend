@@ -1,0 +1,30 @@
+<div class="employee-card col-md-6">
+  <div class="card-header"><h4>Employees</h4></div>
+  <div class="card-body">
+    <table class="list-group-item" *ngIf="employees currentEmployee">
+      <thead>
+        <tr>
+          <th>ID:</th>
+          <th>Name:</th>
+          <th>Username:</th>
+          <th>Title:</th>
+          <th width="220px">Action:</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{employee.empId}}</td>
+          <td>{{employee.col1fName}} {{employee.col2lName}}</td>
+          <td>{{employee.col3username}}</td>
+          <td>{{employee.col5title}}</td>
+          <td>
+            <button type="button" (click)="gotoDetails(employee)" class="btn btn-info mr-1">View</button>
+            <button type="button" (click)="delete(employee.empId)" class="btn btn-danger">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllEmployees()">Remove All</button>
+    <button class="m-3 btn btn-sm btn-primary" (click)="goBack()">Back</button>
+  </div>
+</div>

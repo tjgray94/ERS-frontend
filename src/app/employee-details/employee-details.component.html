@@ -1,0 +1,28 @@
+<div style="width: 400px; margin: auto;">
+  <div>
+    <h4>Employee Details</h4>
+    <div class="form-group">
+      <label>First Name: {{ currentEmployee.col1fName }}</label>
+    </div>
+    <div class="form-group">
+      <label>Last Name: {{ currentEmployee.col2lName }}</label>
+    </div>
+    <div class="form-group">
+      <label>Username: {{ currentEmployee.col3username }}</label>
+    </div>
+    <div class="form-group">
+      <label>Password: </label>
+      <input [type]="showPassword ? 'text' : 'password'" class="form-control" [value]="currentEmployee.col4password" readonly>
+      <button type="button" class="btn btn-sm btn-secondary mt-2" (click)="togglePassword()">
+        {{ showPassword ? 'Hide' : 'Show' }} Password
+      </button>
+    </div>
+    <div class="form-group">
+      <label>Title: {{ currentEmployee.col5title }}</label>
+    </div> 
+    
+    <button class="btn btn-danger mr-2" (click)="deleteEmployee()">Delete</button>
+    <button class="btn btn-success mr-2" (click)="updateEmployee()">Update</button>
+    <button class="btn btn-primary" (click)="goBack()">Back</button>
+  </div>
+</div>

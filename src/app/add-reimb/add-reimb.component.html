@@ -1,0 +1,25 @@
+<div class="container card col-md-6">
+  <div class="card-header text-center">Reimbursement Request</div>
+  <div class="card-body">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="col1empId">Employee ID: {{id}}</label>
+      </div>
+      <div class="form-group">
+        <label for="col2amount">Amount</label>
+        <input type="number" class="form-control" id="col2amount" [(ngModel)]="reimb.col2amount" name="col2amount"/>    
+      </div>
+      <div class="form-group">
+        <label for="col3reason">Reason</label>
+        <input type="text" class="form-control" id="col3reason" [(ngModel)]="reimb.col3reason" name="col3reason"/>    
+      </div>
+      <button (click)="saveReimb()" class="btn btn-success mr-2">Submit</button>
+      <button (click)="goBack()" class="btn btn-primary">Back</button>
+    </div>
+    <div class="card-footer" *ngIf="submitted">
+      <h4>Request submitted successfully!</h4>
+      <button class="btn btn-success mr-2" (click)="newReimb()">Back</button>
+      <button class="btn btn-success" (click)="home()">Home</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="card">
+  <div *ngIf="jobTitle === 'manager'" class="card-header">
+    <h2>Reimbursement List</h2>
+    <form #reimbursementForm="ngForm">
+      <div class="card-body">
+        <table class="list-group-item" *ngIf="reimbs currentReimb">
+          <thead>
+            <tr>
+              <th>RID:</th>
+              <th>Employee ID:</th>
+              <th>Amount:</th>
+              <th>Reason:</th>
+              <th>Status:</th>
+              <th width="220px">Action:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reimb of reimbs; let i = index" [class.active]="i == currentIndex" (click)="setActiveReimb(reimb, i)">
+              <td>{{reimb.reimbId}}</td>
+              <td>{{reimb.empId}}</td>
+              <td>{{reimb.col2amount | currency:USD}}</td>
+              <td>{{reimb.col3reason}}</td>
+              <td>{{reimb.col4status}}</td>
+              <td><a routerLink='{{reimb.reimbId}}' class="btn btn-primary">View</a></td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="goBack()" class="btn btn-primary mt-4">Back</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="jobTitle === 'employee'" class="card-header">
+    <h2>Reimbursements</h2>
+    <form #reimbursementForm="ngForm">
+      <div class="card-body">
+        <table class="list-group-item" *ngIf="reimbs currentReimb">
+          <thead>
+            <tr>
+              <th>RID:</th>
+              <th>Amount:</th>
+              <th>Reason:</th>
+              <th>Status:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reimb of reimbs; let i = index" [class.active]="i == currentIndex" (click)="setActiveReimb(reimb, i)">
+              <td>{{reimb.reimbId}}</td>
+              <td>{{reimb.col2amount | currency:USD}}</td>
+              <td>{{reimb.col3reason}}</td>
+              <td>{{reimb.col4status}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="goBack()" class="btn btn-primary mt-4">Back</button>
+      </div>
+    </form>
+  </div>
+</div>
