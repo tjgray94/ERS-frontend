@@ -1,27 +1,12 @@
 # ERSfrontend
+The Expense Reimbursement System (ERS) is an Angular-based user interface for managing the process of reimbursing employees for expenses incurred while on company time. All employees in the company can login and submit requests for reimbursement and view their past tickets and pending requests. Managers have the ability to login and view all reimbursement requests as well as the history for all employees. Managers also have the authority to approve or deny requests for expense reimbursements.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.7.
+### Features
+- **Account Creation**: Managers and Employees can register by filling in required information. (Managers can create accounts for anyone)
+- **Account Authentication**: Secure login system for personnel authentication.
+- **Account Management**:
+  - **Employees**: Can view or update their information, submit reimbursement request(s), view pending/resolved requests.
+  - **Managers**: Can view list of all employees, update job title of any employee(s), approve/deny pending reimbursement requests, view all pending/resolved requests.
 
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- ### Technology Stack
+  - **User interface**: Angular, TypeScript, HTML, CSS
