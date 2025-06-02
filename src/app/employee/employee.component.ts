@@ -12,7 +12,7 @@ export class EmployeeComponent implements OnInit {
 
   fName: string = '';
   id: number;
-  currentEmployee: Employee
+  currentEmployee: Employee;
 
   constructor(private router: Router, private route: ActivatedRoute, private employeeService: EmployeeService) { }
 

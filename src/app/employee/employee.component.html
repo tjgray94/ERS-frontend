@@ -1,8 +1,29 @@
-<h1>Welcome {{ fName }}</h1>
+<div class="dashboard-container">
+  <div class="welcome-header">
+    <h1 class="welcome-title">Welcome, {{ fName }}</h1>
+    <p class="welcome-subtitle">Employee Dashboard</p>
+  </div>
 
-<div class="container">
-    <h5>What would you like to do today?</h5>
-    <button class="btn btn-outline-danger mr-2" (click)="newReimbursement()">Apply for Reimbursement</button>
-    <button class="btn btn-outline-warning mr-2" (click)="seeRequests()">Reimbursement Requests</button>
-    <button class="btn btn-outline-primary" (click)="updatePassword()">Update Password</button>
+  <div class="dashboard-cards">
+    <div class="dashboard-card">
+      <div class="card-icon">📝</div>
+      <h2 class="card-title">New Reimbursement</h2>
+      <p class="card-description">Submit a new reimbursement request for approval</p>
+      <button class="card-button" (click)="newReimbursement()">APPLY NOW</button>
+    </div>
+
+    <div class="dashboard-card">
+      <div class="card-icon">📊</div>
+      <h2 class="card-title">View Requests</h2>
+      <p class="card-description">Check the status of your reimbursement requests</p>
+      <button class="card-button warning" (click)="seeRequests()">VIEW REQUESTS</button>
+    </div>
+
+    <div class="dashboard-card">
+      <div class="card-icon">🔒</div>
+      <h2 class="card-title">Account Security</h2>
+      <p class="card-description">Update your password and security settings</p>
+      <button class="card-button secondary" (click)="updatePassword()">UPDATE PASSWORD</button>
+    </div>
+  </div>
 </div>
