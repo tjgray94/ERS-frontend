@@ -128,3 +128,14 @@
   color: #48bb78;
   margin-bottom: 20px;
 }
+
+.error-message {
+  color: #e53e3e;
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.form-control.invalid {
+  border-color: #e53e3e;
+}

@@ -5,39 +5,76 @@
     </div>
     <div class="employee-body">
       <div *ngIf="!submitted">
-        <div class="form-group">
-          <label for="col1fName" class="form-label">FIRST NAME</label>
-          <input type="text" class="form-control" id="col1fName" [(ngModel)]="employee.col1fName" name="col1fName"/>
-        </div>
-        <div class="form-group">
-          <label for="col2lName" class="form-label">LAST NAME</label>
-          <input type="text" class="form-control" id="col2lName" [(ngModel)]="employee.col2lName" name="col2lName"/>    
-        </div>
-        <div class="form-group">
-          <label for="col3username" class="form-label">USERNAME</label>
-          <input type="text" class="form-control" id="col3username" [(ngModel)]="employee.col3username" name="col3username"/>    
-        </div>
-        <div class="form-group">
-          <label for="col4password" class="form-label">PASSWORD</label>
-          <input type="password" class="form-control" id="col4password" [(ngModel)]="employee.col4password" name="col4password"/>    
-        </div>
-        <div class="form-group">
-          <label class="form-label">POSITION</label>
-          <div class="radio-group">
-            <div class="radio-option">
-              <input type="radio" id="employee-option" [(ngModel)]="employee.col5title" name="col5title" value="EMPLOYEE" />
-              <label for="employee-option">Employee</label>
-            </div>
-            <div class="radio-option">
-              <input type="radio" id="manager-option" [(ngModel)]="employee.col5title" name="col5title" value="MANAGER" />
-              <label for="manager-option">Manager</label>
+        <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+          <div class="form-group">
+            <label for="col1fName" class="form-label">FIRST NAME</label>
+            <input type="text" class="form-control" id="col1fName" formControlName="col1fName"/>
+            <div *ngIf="(f.col1fName.touched || submitted) && f.col1fName.errors" class="error-message">
+              <div *ngIf="f.col1fName.errors.required">First name is required</div>
+              <div *ngIf="f.col1fName.errors.minlength">First name must be at least 2 characters</div>
             </div>
           </div>
-        </div>
-        <div class="button-group">
-          <button (click)="saveEmployee()" class="btn btn-primary">REGISTER</button>
-          <button (click)="goBack()" class="btn btn-secondary">CANCEL</button>
-        </div>
+          
+          <div class="form-group">
+            <label for="col2lName" class="form-label">LAST NAME</label>
+            <input type="text" class="form-control" id="col2lName" formControlName="col2lName"/>    
+            <div *ngIf="(f.col2lName.touched || submitted) && f.col2lName.errors" class="error-message">
+              <div *ngIf="f.col2lName.errors.required">Last name is required</div>
+              <div *ngIf="f.col2lName.errors.minlength">Last name must be at least 2 characters</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="col3username" class="form-label">USERNAME</label>
+            <input type="text" class="form-control" id="col3username" formControlName="col3username"/>    
+            <div *ngIf="(f.col3username.touched || submitted) && f.col3username.errors" class="error-message">
+              <div *ngIf="f.col3username.errors.required">Username is required</div>
+              <div *ngIf="f.col3username.errors.minlength">Username must be at least 6 characters</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="col4password" class="form-label">PASSWORD</label>
+            <input type="password" class="form-control" id="col4password" formControlName="col4password" (input)="checkPasswordMatch()"/>    
+            <div *ngIf="(f.col4password.touched || submitted) && f.col4password.errors" class="error-message">
+              <div *ngIf="f.col4password.errors.required">Password is required</div>
+              <div *ngIf="f.col4password.errors.minlength">Password must be at least 8 characters</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="confirmPassword" class="form-label">CONFIRM PASSWORD</label>
+            <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" (input)="checkPasswordMatch()"/>    
+            <div *ngIf="(f.confirmPassword.touched || submitted) && f.confirmPassword.errors" class="error-message">
+              <div *ngIf="f.confirmPassword.errors.required">Please confirm your password</div>
+            </div>
+            <div *ngIf="(f.confirmPassword.touched || submitted) && passwordMismatch" class="error-message">
+              Passwords do not match
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">POSITION</label>
+            <div class="radio-group">
+              <div class="radio-option">
+                <input type="radio" id="employee-option" formControlName="col5title" value="EMPLOYEE" />
+                <label for="employee-option">Employee</label>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="manager-option" formControlName="col5title" value="MANAGER" />
+                <label for="manager-option">Manager</label>
+              </div>
+            </div>
+            <div *ngIf="(f.col5title.touched || submitted) && f.col5title.errors" class="error-message">
+              <div *ngIf="f.col5title.errors.required">Please select a position</div>
+            </div>
+          </div>
+          
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid || passwordMismatch">REGISTER</button>
+            <button type="button" (click)="goBack()" class="btn btn-secondary">CANCEL</button>
+          </div>
+        </form>
       </div>
       
       <div class="success-message" *ngIf="submitted">
