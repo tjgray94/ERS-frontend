@@ -1,21 +1,39 @@
-<welcome></welcome>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div class="container card text-center col-sm-4">
-    <div class="card-header">User Login Form</div>
-    <p *ngIf="loginError">{{ loginError }}</p>
-    <div class="card-body">
-      <div class="form-group">
-        <input type="text" formControlName="username" placeholder="Username" required>
-        <span class="text-danger" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.hasError('required', 'username')">Username is required</span>
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-card">
+    <div class="login-header">
+      <img src="assets/company-logo.svg" alt="Company Logo" class="company-logo">
+      <h1 class="header-title">Employee Reimbursement System</h1>
+      <p class="header-subtitle">Secure Enterprise Portal</p>
+    </div>
+    
+    <div class="login-body">
+      <div class="error-alert" *ngIf="loginError">
+        <strong>Authentication Error:</strong> {{ loginError }}
       </div>
+      
       <div class="form-group">
-        <input type="password" formControlName="password" placeholder="Password" required>
-        <span class="text-danger" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.hasError('required', 'password')">Password is required</span>
+        <label for="username" class="form-label">USERNAME</label>
+        <input type="text" id="username" class="form-control" formControlName="username" required>
+        <div class="error-message" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.hasError('required', 'username')">
+          Please enter your username to continue
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button><br><br>
-      <div class="form-check">
-        <p>New employee? Click <a routerLink="/employees/add" class="nav-brand">here</a></p>
+      
+      <div class="form-group">
+        <label for="password" class="form-label">PASSWORD</label>
+        <input type="password" id="password" class="form-control" formControlName="password" required>
+        <div class="error-message" *ngIf="loginForm.controls.password.touched && loginForm.controls.password.hasError('required', 'password')">
+          Please enter your password to continue
+        </div>
+      </div>
+      
+      <button type="submit" class="login-btn" [disabled]="loginForm.invalid">ACCESS PORTAL</button>
+    </div>
+    
+    <div class="login-footer">
+      <div class="signup-link">
+        New employee? <a routerLink="/employees/add">Request System Access</a>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
