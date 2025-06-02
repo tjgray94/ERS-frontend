@@ -5,27 +5,37 @@
     </div>
     <div class="reimb-body">
       <div *ngIf="!submitted">
-        <div class="form-group">
-          <label class="form-label">EMPLOYEE ID</label>
-          <div class="employee-id">{{id}}</div>
-        </div>
-        
-        <div class="form-group">
-          <label for="col2amount" class="form-label">AMOUNT</label>
-          <div class="currency-input">
-            <input type="number" class="form-control" id="col2amount" [(ngModel)]="reimb.col2amount" name="col2amount" placeholder="0.00" step="0.01" min="0"/>
+        <form [formGroup]="reimbForm" (ngSubmit)="saveReimb()">
+          <div class="form-group">
+            <label class="form-label">EMPLOYEE ID</label>
+            <div class="employee-id">{{id}}</div>
           </div>
-        </div>
-        
-        <div class="form-group">
-          <label for="col3reason" class="form-label">REASON FOR REQUEST</label>
-          <input type="text" class="form-control" id="col3reason" [(ngModel)]="reimb.col3reason" name="col3reason" placeholder="Enter reason for reimbursement"/>    
-        </div>
-        
-        <div class="button-group">
-          <button (click)="saveReimb()" class="btn btn-primary">SUBMIT REQUEST</button>
-          <button (click)="goBack()" class="btn btn-secondary">CANCEL</button>
-        </div>
+          
+          <div class="form-group">
+            <label for="col2amount" class="form-label">AMOUNT</label>
+            <div class="currency-input">
+              <input type="number" class="form-control" id="col2amount" formControlName="col2amount" placeholder="0.00" step="0.01" min="0.01"/>
+            </div>
+            <div *ngIf="(f.col2amount.touched || submitted) && f.col2amount.errors" class="error-message">
+              <div *ngIf="f.col2amount.errors.required">Amount is required</div>
+              <div *ngIf="f.col2amount.errors.min">Amount must be greater than 0</div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="col3reason" class="form-label">REASON FOR REQUEST</label>
+            <input type="text" class="form-control" id="col3reason" formControlName="col3reason" placeholder="Enter reason for reimbursement"/>    
+            <div *ngIf="(f.col3reason.touched || submitted) && f.col3reason.errors" class="error-message">
+              <div *ngIf="f.col3reason.errors.required">Reason is required</div>
+              <div *ngIf="f.col3reason.errors.minlength">Reason must be at least 5 characters</div>
+            </div>
+          </div>
+          
+          <div class="button-group">
+            <button type="submit" class="btn btn-primary" [disabled]="reimbForm.invalid">SUBMIT REQUEST</button>
+            <button type="button" (click)="goBack()" class="btn btn-secondary">CANCEL</button>
+          </div>
+        </form>
       </div>
       
       <div class="success-message" *ngIf="submitted">

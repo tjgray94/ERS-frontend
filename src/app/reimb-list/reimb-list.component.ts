@@ -15,6 +15,7 @@ export class ReimbListComponent implements OnInit {
   reimbId: number;
   reimbs!: Reimbursement[];
   currentReimb?: Reimbursement;
+  currentRoute: string = '';
   currentIndex = -1;
   jobTitle: string = '';
   @ViewChild('reimbursementForm') form!: NgForm;
@@ -27,14 +28,14 @@ export class ReimbListComponent implements OnInit {
     this.empId = this.route.snapshot.params['empId'];
     this.reimbId = this.route.snapshot.params['reimbId'];
 
-    const currentRoute = this.route.snapshot.url.join('/');
+    this.currentRoute = this.route.snapshot.url.join('/');
     
-    if (currentRoute.includes('manager')) {
+    if (this.currentRoute.includes('manager')) {
       this.jobTitle = 'manager';
       this.reimbService.getAll().subscribe((data) => { 
         this.reimbs = data;
       });
-    } else if (currentRoute.includes('employee')) {
+    } else if (this.currentRoute.includes('employee')) {
       this.jobTitle = 'employee';
       this.reimbService.getByEmpId(this.empId).subscribe((data) => { this.reimbs = data });
     }   
@@ -46,10 +47,14 @@ export class ReimbListComponent implements OnInit {
   }
 
   selectReimb() {
-    this.router.navigate([`employee/${this.empId}/reimbursements/${this.reimbId}`])
+    this.router.navigate([`employee/${this.empId}/reimbursements/${this.reimbId}`]);
   }
 
   goBack() {
-    window.history.back();
+    if (this.currentRoute.includes('manager')) {
+      this.router.navigate([`manager/${this.empId}`]);
+    } else {
+      this.router.navigate([`employee/${this.empId}`]);
+    }
   }
 }
