@@ -27,8 +27,8 @@
             </span>
           </div>
           
-          <div *ngIf="reimbursement?.col4status === 'Pending'">
-            <select class="form-control" id="col4status" [(ngModel)]="reimbursement.col4status" name="col4status">
+          <div>
+            <select class="form-control" id="col4status" [(ngModel)]="reimbursement.col4status" name="col4status" style="height: auto; padding: 10px;">
               <option value="Pending">Pending</option>
               <option value="Accepted">Accept</option>
               <option value="Rejected">Reject</option>

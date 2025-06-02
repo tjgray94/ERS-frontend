@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../employee.service';
+import { ReimbService } from '../reimb.service';
 
 @Component({
   selector: 'manager',
@@ -20,7 +21,8 @@ export class ManagerComponent implements OnInit {
   constructor(
     private router: Router, 
     private route: ActivatedRoute,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private reimbService: ReimbService
   ) { }
 
   ngOnInit(): void {
@@ -33,17 +35,27 @@ export class ManagerComponent implements OnInit {
       }
     });
     
-    // You would typically fetch these stats from your service
-    // This is placeholder code - replace with actual API calls
     this.loadDashboardStats();
   }
 
   loadDashboardStats() {
-    // Placeholder for loading dashboard statistics
-    // Replace with actual API calls to get real data
-    this.totalEmployees = 12;
-    this.pendingRequests = 5;
-    this.totalReimbursed = 2450;
+    // Get total employees count
+    this.employeeService.getAll().subscribe(employees => {
+      this.totalEmployees = employees.length;
+    });
+    
+    // Get pending requests count and total reimbursed amount
+    this.reimbService.getAll().subscribe(reimbursements => {
+      // Count pending requests
+      this.pendingRequests = reimbursements.filter(reimb => 
+        reimb.col4status === 'Pending'
+      ).length;
+      
+      // Calculate total reimbursed amount
+      this.totalReimbursed = reimbursements
+        .filter(reimb => reimb.col4status === 'Accepted')
+        .reduce((total, reimb) => total + (reimb.col2amount || 0), 0);
+    });
   }
 
   viewEmployees() {
