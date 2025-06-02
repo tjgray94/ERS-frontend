@@ -1,52 +1,73 @@
-<div class="container" *ngIf="jobTitle === 'manager'">
-  <h1>Update Job Title for {{ employee.col1fName }} {{ employee.col2lName }}</h1>
+<div class="edit-container">
+  <!-- Manager View - Update Job Title -->
+  <div class="edit-card" *ngIf="jobTitle === 'manager'">
+    <div class="edit-header">
+      Update Employee Position
+    </div>
+    <div class="edit-body">
+      <div class="employee-name">{{ employee?.col1fName }} {{ employee?.col2lName }}</div>
+      
+      <form #jobTitleForm="ngForm" (ngSubmit)="updateJobTitle()">
+        <div class="section-title">Select Position</div>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" id="employee-option" [(ngModel)]="employee.col5title" name="col5title" value="EMPLOYEE" />
+            <label for="employee-option">Employee</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" id="manager-option" [(ngModel)]="employee.col5title" name="col5title" value="MANAGER" />
+            <label for="manager-option">Manager</label>
+          </div>
+        </div>
+        
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">UPDATE POSITION</button>
+          <button type="button" (click)="goBack()" class="btn btn-secondary">CANCEL</button>
+        </div>
+      </form>
+    </div>
+  </div>
   
-  <form #jobTitleForm="ngForm" (ngSubmit)="updateJobTitle()">
-    <div class="radio-group">
-      <label>
-        <input type="radio" [(ngModel)]="employee.col5title" name="col5title" value="EMPLOYEE" />
-        Employee
-      </label>
-      <label>
-        <input type="radio" [(ngModel)]="employee.col5title" name="col5title" value="MANAGER" />
-        Manager
-      </label>
+  <!-- Employee View - Update Password -->
+  <div class="edit-card" *ngIf="jobTitle === 'employee'">
+    <div class="edit-header">
+      Update Password
     </div>
-    
-    <button type="submit" class="btn btn-primary mr-2">Update</button>
-    <button (click)="goBack()" class="btn btn-primary">Back</button>
-  </form>
-</div>
-
-<div class="container" *ngIf="jobTitle === 'employee'">
-  <h1>Update Password for {{ employee.col1fName }} {{ employee.col2lName }}</h1>
-  
-  <form #employeeForm="ngForm" (ngSubmit)="submit()">
-    <div class="form-group">
-      <label>Current Password</label>
-      <input type="password" class="form-control" id="currentPassword" name="currentPassword" required
-      [(ngModel)]="currentPassword" (input)="validatePasswords()" #currentPasswordField="ngModel" />
-      <div *ngIf="currentPasswordField.invalid && currentPasswordField.touched" class="text-danger">
-        Current password is required.
-      </div>
-      <div *ngIf="passwordMismatch" class="text-danger">
-        Current password is incorrect.
-      </div>
+    <div class="edit-body">
+      <div class="employee-name">{{ employee?.col1fName }} {{ employee?.col2lName }}</div>
+      
+      <form #employeeForm="ngForm" (ngSubmit)="submit()">
+        <div class="form-group">
+          <label for="currentPassword" class="form-label">CURRENT PASSWORD</label>
+          <input type="password" class="form-control" id="currentPassword" name="currentPassword" required
+                 [(ngModel)]="currentPassword" (input)="validatePasswords()" #currentPasswordField="ngModel" />
+          <div *ngIf="currentPasswordField.invalid && currentPasswordField.touched" class="error-message">
+            Current password is required
+          </div>
+          <div *ngIf="passwordMismatch" class="error-message">
+            Current password is incorrect
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="newPassword" class="form-label">NEW PASSWORD</label>
+          <input type="password" class="form-control" id="newPassword" name="newPassword" required 
+                 [(ngModel)]="newPassword" (input)="validatePasswords()" #newPasswordField="ngModel" />
+          <div *ngIf="newPasswordField.invalid && newPasswordField.touched" class="error-message">
+            New password is required
+          </div>
+          <div *ngIf="samePasswordError" class="error-message">
+            New password cannot be the same as current password
+          </div>
+        </div>
+        
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary" [disabled]="passwordMismatch || samePasswordError || !employeeForm.form.valid">
+            UPDATE PASSWORD
+          </button>
+          <button type="button" (click)="goBack()" class="btn btn-secondary">CANCEL</button>
+        </div>
+      </form>
     </div>
-    
-    <div class="form-group">
-      <label>New Password</label>
-      <input type="password" class="form-control" id="newPassword" name="newPassword" required 
-      [(ngModel)]="newPassword" (input)="validatePasswords()" #newPasswordField="ngModel" />
-      <div *ngIf="newPasswordField.invalid && newPasswordField.touched" class="text-danger">
-        New password is required.
-      </div>
-      <div *ngIf="samePasswordError" class="text-danger">
-        New password cannot be the same as the current password.
-      </div>
-    </div>
-    
-    <button type="submit" class="btn btn-primary mr-2" [disabled]="passwordMismatch || samePasswordError || !employeeForm.form.valid">Update</button>
-    <button (click)="goBack()" class="btn btn-primary">Back</button>
-  </form>
+  </div>
 </div>
