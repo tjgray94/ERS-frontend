@@ -1,5 +1,5 @@
 # ERSfrontend
-The Expense Reimbursement System (ERS) is an Angular-based user interface for managing the process of reimbursing employees for expenses incurred while on company time. All employees in the company can login and submit requests for reimbursement and view their past tickets and pending requests. Managers have the ability to login and view all reimbursement requests as well as the history for all employees. Managers also have the authority to approve or deny requests for expense reimbursements.
+The Employee Reimbursement System (ERS) is an Angular-based user interface for managing the process of reimbursing employees for expenses incurred while on company time. All employees in the company can login and submit requests for reimbursement and view their past tickets and pending requests. Managers have the ability to login and view all reimbursement requests as well as the history for all employees. Managers also have the authority to approve or deny requests for expense reimbursements.
 
 ### Features
 - **Account Creation**: Managers and Employees can register by filling in required information. (Managers can create accounts for anyone)
