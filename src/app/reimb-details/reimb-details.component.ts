@@ -41,6 +41,19 @@ export class ReimbDetailsComponent implements OnInit {
     })
   }
 
+  getEmployeeId(): string {
+    if (!this.reimbursement) return 'N/A';
+    
+    // Try to access empId from different possible locations
+    if (this.reimbursement.hasOwnProperty('empId')) {
+      return this.reimbursement['empId'];
+    } else if (this.reimbursement.employee && this.reimbursement.employee.empId) {
+      return this.reimbursement.employee.empId;
+    } else {
+      return 'N/A';
+    }
+  }
+  
   back() {
     this.router.navigate([`manager/${this.empId}/reimbursements`]);
   }
