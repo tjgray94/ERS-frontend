@@ -1,19 +1,46 @@
-<div class="container">
-  <form>
-    <h1>Reimbursement for Employee ID: {{reimbursement.employee}}</h1>
-    <div class="form-group">
-      <label>{{reimbursement.col2amount | currency}} for {{reimbursement.col3reason}}</label>
+<div class="details-container">
+  <div class="details-card">
+    <div class="details-header">
+      Reimbursement Request Details
     </div>
-    <div class="form-group">
-      <label>Status: </label>
-      <p *ngIf="reimbursement.col4status === 'Accepted' || reimbursement.col4status === 'Rejected' ">{{reimbursement.col4status}}</p>
-      <select *ngIf="reimbursement.col4status === 'Pending'" class="form-control" id="col4status" [(ngModel)]="reimbursement.col4status" name="col4status">
-        <option value="Pending">Pending</option>
-        <option value="Accepted">Accept</option>
-        <option value="Rejected">Reject</option>
-      </select>
+    <div class="details-body">
+      <form>
+        <div class="detail-section">
+          <span class="section-label">Employee ID</span>
+          <div class="section-value">{{reimbursement?.employee?.empId || 'N/A'}}</div>
+        </div>
+        
+        <div class="detail-section">
+          <span class="section-label">Request Information</span>
+          <div class="amount-value">{{reimbursement?.col2amount | currency}}</div>
+          <div class="reason-value">{{reimbursement?.col3reason}}</div>
+        </div>
+        
+        <div class="status-section">
+          <span class="section-label">Request Status</span>
+          
+          <div *ngIf="reimbursement?.col4status === 'Accepted' || reimbursement?.col4status === 'Rejected'">
+            <span class="status-badge" 
+                  [ngClass]="{'status-accepted': reimbursement?.col4status === 'Accepted', 
+                             'status-rejected': reimbursement?.col4status === 'Rejected'}">
+              {{reimbursement?.col4status}}
+            </span>
+          </div>
+          
+          <div *ngIf="reimbursement?.col4status === 'Pending'">
+            <select class="form-control" id="col4status" [(ngModel)]="reimbursement.col4status" name="col4status">
+              <option value="Pending">Pending</option>
+              <option value="Accepted">Accept</option>
+              <option value="Rejected">Reject</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="button-group">
+          <button class="btn btn-primary" (click)="submit()">UPDATE STATUS</button>
+          <button class="btn btn-secondary" (click)="back()">RETURN TO LIST</button>
+        </div>
+      </form>
     </div>
-    <button class="btn btn-primary mr-2" (click)="submit()">Update</button>
-    <button (click)="back()" class="btn btn-primary">Back</button>
-  </form>
+  </div>
 </div>
