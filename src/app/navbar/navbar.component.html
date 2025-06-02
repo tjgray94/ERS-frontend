@@ -6,7 +6,8 @@
     </a>
     
     <div class="navbar-actions">
-      <a routerLink="/login" class="action-button primary">Login</a>
+      <a *ngIf="!isLoggedIn" routerLink="/login" class="action-button primary">Login</a>
+      <button *ngIf="isLoggedIn" (click)="logout()" class="action-button">Logout</button>
     </div>
   </div>
 </nav>
